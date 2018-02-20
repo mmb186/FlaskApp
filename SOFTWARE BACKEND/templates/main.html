@@ -1,0 +1,51 @@
+<html>
+</html>
+
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="   crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <ul id="messages">
+    </ul>
+    <input type="text" id="myMessage">
+    <button id="sendButton">Send</button>
+
+
+
+    <script type="text/javascript">
+    console.log("entered script");
+    $(document).ready(function(){
+        var namespace= '/test';
+        var socket = io.connect('http://127.0.0.1:5000'+namespace); //creating socket object
+
+        socket.on('connect', function(){
+            socket.send('User has connected!');
+        });
+        socket.on('message', function(msg){ //listening to a message event
+            $("#messages").append('<li>'+msg+'</li>');
+            console.log("recieved Message: " + msg);
+        });
+    socket.on('podSensorData', function(msg){
+        console.log(msg);
+        // $("#message").append("<li>"+ + + +"</li>")
+    });
+
+        $("#sendButton").on('click', function(){
+            const clientCommand = $("#myMessage").val();
+            console.log($("#myMessage").val());
+            console.log("BUTTON CLICK, msg is " + clientCommand);
+            socket.send($("#myMessage").val()); //sending the message
+            socket.emit("clientCommands", {'data': clientCommand });
+            $('#myMessage').val('');
+        })
+    });
+
+    </script>
+
+</body>
+
+</html>
