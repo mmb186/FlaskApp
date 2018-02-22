@@ -1,0 +1,1 @@
+from .paradigm import app

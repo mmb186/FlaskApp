@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+package tutorial;
+
+message Sensor {
+  required string name = 1;
+  required int32 value = 2;
+  required int32 time = 3;
+
+  enum statuses {
+    GOOD = 0;
+    ERROR = 1;
+    ALERT = 2;
+  }
+
+  optional statuses status = 4[default = GOOD];
+  optional string message =5;
+ 
+}
+
