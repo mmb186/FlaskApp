@@ -1,5 +1,7 @@
-
 from celery import Celery
+import socket
+import sys
+import sensorData_pb2
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
@@ -17,28 +19,64 @@ def make_celery(app):
 def startUDPListener():
 	# Create a UDP/IP socket
 	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	# Bind the socket to the port
+	# Bind UDP socket to the port
 	server_address = ('localhost', 10000)
-	print >> sys.stderr, 'starting up on %s port %s' % server_address
+	print >> sys.stderr, 'UDP listener on %s port %s' % server_address
 	sock.bind(server_address)
-	#Create Empty Protobuf object
-	sensorReading = sensorData_pb2.Sensor()
 	
+
+	dbSock =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	dbSockserver_address = ('localhost', 2004)
+	print >> sys.stderr, 'dataBaseIO client on %s port %s' % dbSockserver_address
+	dbSock.connect(dbSockserver_address)
+
+
+	#Create Empty Protobuf object
+	dataPoint = sensorData_pb2.dataPoint()
+	pointPackage = sensorData_pb2.pointPackage()
+
 	while True:
 	    print >>sys.stderr, '\nwaiting to receive message'
 	    data, address = sock.recvfrom(4096)
 	   	
-	   	#Parse Protobuf 
-	    sensorReading.ParseFromString(data)
-
-	    #Prettyprint Protobuf
-	    print >>sys.stderr, 'Packet Recieved : \n'
-	    print >>sys.stderr, sensorReading.__str__()
-	    
 	    #Echo The message
 	    if data:
-
+	    	#Prettyprint Protobuf
+	    	print >>sys.stderr, 'Packet Recieved : \n'
 	    	
+	    	dataPoint.ParseFromString(data)
+	    	print >>sys.stderr, dataPoint.__str__()
+	    	
+	    	pointPackage.points.extend([dataPoint])
+	    	dataPoint.Clear()
 
-	        sent = sock.sendto(data, address)
-	        print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+	    	print >>sys.stderr, 'Current Package Contents %s' % pointPackage.__str__()
+
+	        if len(pointPackage.points) > 3:
+	        	print >> sys.stderr, 'WE GOT TOO MANY PACKATES'
+	        	dbSock.send(pointPackage.SerializeToString())
+	        	pointPackage.Clear()
+
+
+
+
+
+
+	        	
+def dataBaseIO():
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.bind(('localhost', 2004))
+	s.listen(1)
+	conn, addr = s.accept()
+	while 1:
+	    data = conn.recv(1024)
+	    if data = 'exit'
+	    	break
+	    if data: 
+	    	print >> sys.stderr, 'START DATABASE IO'
+	    	package = sensorData_pb2.pointPackage()
+	    	package.ParseFromString(data)
+	    	print >> sys.stderr , package.__str__()
+	conn.close()
+
+

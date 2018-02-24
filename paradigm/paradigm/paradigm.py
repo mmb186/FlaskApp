@@ -4,11 +4,11 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
 import socket
-import sys
+import sys, time
 import sensorData_pb2
 from celery import Celery
 
-from workers import make_celery,startUDPListener
+from workers import make_celery,startUDPListener,dataBaseIO
 
 app = Flask(__name__) 
 app.config.from_object(__name__) 
@@ -30,9 +30,17 @@ def startUDP():
 	return
 
 
+@celery.task(name="tasks.startDataBaseIO")
+def startDataBaseIO():
+	dataBaseIO()
+	return
+
 
 @app.route('/')
 def landingController():
-	retval = add.startUDP()
+	startDataBaseIO.delay()
+	time.sleep(2)
+	startUDP.delay()
 	return 'Hello, World!'
+
 

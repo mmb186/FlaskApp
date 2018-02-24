@@ -17,16 +17,16 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='sensorData.proto',
-  package='tutorial',
-  serialized_pb=_b('\n\x10sensorData.proto\x12\x08tutorial\"\xa1\x01\n\x06Sensor\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\x05\x12\x0c\n\x04time\x18\x03 \x02(\x05\x12/\n\x06status\x18\x04 \x01(\x0e\x32\x19.tutorial.Sensor.statuses:\x04GOOD\x12\x0f\n\x07message\x18\x05 \x01(\t\"*\n\x08statuses\x12\x08\n\x04GOOD\x10\x00\x12\t\n\x05\x45RROR\x10\x01\x12\t\n\x05\x41LERT\x10\x02')
+  package='tutoriale',
+  serialized_pb=_b('\n\x10sensorData.proto\x12\ttutoriale\"\xa8\x01\n\tdataPoint\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\x05\x12\x0c\n\x04time\x18\x03 \x02(\x05\x12\x33\n\x06status\x18\x04 \x01(\x0e\x32\x1d.tutoriale.dataPoint.statuses:\x04GOOD\x12\x0f\n\x07message\x18\x05 \x01(\t\"*\n\x08statuses\x12\x08\n\x04GOOD\x10\x00\x12\t\n\x05\x45RROR\x10\x01\x12\t\n\x05\x41LERT\x10\x02\"4\n\x0cpointPackage\x12$\n\x06points\x18\x01 \x03(\x0b\x32\x14.tutoriale.dataPoint')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-_SENSOR_STATUSES = _descriptor.EnumDescriptor(
+_DATAPOINT_STATUSES = _descriptor.EnumDescriptor(
   name='statuses',
-  full_name='tutorial.Sensor.statuses',
+  full_name='tutoriale.dataPoint.statuses',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -45,49 +45,49 @@ _SENSOR_STATUSES = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=150,
-  serialized_end=192,
+  serialized_start=158,
+  serialized_end=200,
 )
-_sym_db.RegisterEnumDescriptor(_SENSOR_STATUSES)
+_sym_db.RegisterEnumDescriptor(_DATAPOINT_STATUSES)
 
 
-_SENSOR = _descriptor.Descriptor(
-  name='Sensor',
-  full_name='tutorial.Sensor',
+_DATAPOINT = _descriptor.Descriptor(
+  name='dataPoint',
+  full_name='tutoriale.dataPoint',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='tutorial.Sensor.name', index=0,
+      name='name', full_name='tutoriale.dataPoint.name', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='tutorial.Sensor.value', index=1,
+      name='value', full_name='tutoriale.dataPoint.value', index=1,
       number=2, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='tutorial.Sensor.time', index=2,
+      name='time', full_name='tutoriale.dataPoint.time', index=2,
       number=3, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='status', full_name='tutorial.Sensor.status', index=3,
+      name='status', full_name='tutoriale.dataPoint.status', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message', full_name='tutorial.Sensor.message', index=4,
+      name='message', full_name='tutoriale.dataPoint.message', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -98,27 +98,66 @@ _SENSOR = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SENSOR_STATUSES,
+    _DATAPOINT_STATUSES,
   ],
   options=None,
   is_extendable=False,
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=31,
-  serialized_end=192,
+  serialized_start=32,
+  serialized_end=200,
 )
 
-_SENSOR.fields_by_name['status'].enum_type = _SENSOR_STATUSES
-_SENSOR_STATUSES.containing_type = _SENSOR
-DESCRIPTOR.message_types_by_name['Sensor'] = _SENSOR
 
-Sensor = _reflection.GeneratedProtocolMessageType('Sensor', (_message.Message,), dict(
-  DESCRIPTOR = _SENSOR,
+_POINTPACKAGE = _descriptor.Descriptor(
+  name='pointPackage',
+  full_name='tutoriale.pointPackage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='points', full_name='tutoriale.pointPackage.points', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=202,
+  serialized_end=254,
+)
+
+_DATAPOINT.fields_by_name['status'].enum_type = _DATAPOINT_STATUSES
+_DATAPOINT_STATUSES.containing_type = _DATAPOINT
+_POINTPACKAGE.fields_by_name['points'].message_type = _DATAPOINT
+DESCRIPTOR.message_types_by_name['dataPoint'] = _DATAPOINT
+DESCRIPTOR.message_types_by_name['pointPackage'] = _POINTPACKAGE
+
+dataPoint = _reflection.GeneratedProtocolMessageType('dataPoint', (_message.Message,), dict(
+  DESCRIPTOR = _DATAPOINT,
   __module__ = 'sensorData_pb2'
-  # @@protoc_insertion_point(class_scope:tutorial.Sensor)
+  # @@protoc_insertion_point(class_scope:tutoriale.dataPoint)
   ))
-_sym_db.RegisterMessage(Sensor)
+_sym_db.RegisterMessage(dataPoint)
+
+pointPackage = _reflection.GeneratedProtocolMessageType('pointPackage', (_message.Message,), dict(
+  DESCRIPTOR = _POINTPACKAGE,
+  __module__ = 'sensorData_pb2'
+  # @@protoc_insertion_point(class_scope:tutoriale.pointPackage)
+  ))
+_sym_db.RegisterMessage(pointPackage)
 
 
 # @@protoc_insertion_point(module_scope)
