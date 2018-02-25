@@ -1,7 +1,6 @@
 from celery import Celery
-import socket
-import sys
-import sensorData_pb2
+import socket, sensorData_pb2, sys
+from influxdb import InfluxDBClient
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
@@ -56,11 +55,6 @@ def startUDPListener():
 	        	print >> sys.stderr, 'WE GOT TOO MANY PACKATES'
 	        	dbSock.send(pointPackage.SerializeToString())
 	        	pointPackage.Clear()
-
-
-
-
-
 
 	        	
 def dataBaseIO():

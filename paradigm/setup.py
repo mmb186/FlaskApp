@@ -5,6 +5,6 @@ setup(
     packages=['paradigm'],
     include_package_data=True,
     install_requires=[
-        'flask','flask_sqlalchemy','Flask-InfluxDB','flask-socketio','eventlet','celery','sqlalchemy','protobuf','redis'
+        'flask','pandas','Sphinx','Nose','flask_sqlalchemy','influxdb','flask-socketio','eventlet','celery','sqlalchemy','protobuf','redis'
     ],
 )
